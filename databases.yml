@@ -1,0 +1,27 @@
+Sequel_claims_prod:
+Lighthouse_prod:
+Terra_prod:
+  adapter: sqlserver
+  host: ''
+  port: ''
+  database: ''
+data_lake_prod:
+  adapter: sqlserver
+  host: ''
+  port: ''
+  database: ''
+snowflake_prod:
+  adapter: sqlserver
+  host: ''
+  port: ''
+  database: ''
+caps_prod:
+  adapter: sqlserver
+  host: ''
+  port: ''
+  database: ''
+edge_prod:
+  adapter: sqlserver
+  host: ''
+  port: ''
+  database: ''

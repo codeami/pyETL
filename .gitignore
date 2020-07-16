@@ -1,0 +1,10 @@
+.idea
+**/.pytest_cache/
+output/
+**/cache/
+*.csv
+**/*.pkl
+*.log
+temp/
+*_2.yml
+*_2.py

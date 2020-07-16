@@ -1,0 +1,73 @@
+
+# --------------- Schema - cmsi--------------------
+
+schema: 'cmsi'
+
+schema_tables_dict: {
+  cmsi: ['a01_company_setup', 'acommon', 'ccommon', 'company', 'creserve', 'ctd', 'ctransactions', 'freedom_suppress_facultative', 'la02_state', 'lb93_county', 'lc08_const', 'ld14_agt_status', 'ld59_cause_of_loss', 'ld60_loss_types', 'le60_bureau_cov', 'lg37_rating_basis', 'lg78_program_code', 'lq70_underwriter', 'lq70_underwriter', 'lr21_business_unit', 'name_address', 'paragon_lb97_sbl', 'paragon_lc87_coverage', 'pcommon', 'pcoverage', 'pforms', 'prein_coverage', 'prein_trans', 'ptrans', 'punderlying', 'punit', 'scommon', 'scommon_log', 'tbl_facultative', 'tbl_freedom_ceding_percentages', 'tbl_layered_premium', 'ytd']
+}
+
+class1_schema_tables_dict: {
+  cmsi: [ 'scommon', 'scommon_log', 'tbl_facultative', 'tbl_freedom_ceding_percentages', 'tbl_layered_premium', 'ytd']
+}
+excluded: {}
+
+
+#'pforms',
+tables_list: [ 'scommon', 'scommon_log', 'tbl_facultative', 'tbl_freedom_ceding_percentages', 'tbl_layered_premium', 'ytd']
+#tables_list: ['a01_company_setup', 'acommon', 'ccommon', 'company', 'creserve', 'ctd', 'ctransactions', 'freedom_suppress_facultative', 'la02_state', 'lb93_county', 'lc08_const', 'ld14_agt_status', 'ld59_cause_of_loss', 'ld60_loss_types', 'le60_bureau_cov', 'lg37_rating_basis', 'lg78_program_code', 'lq70_underwriter', 'lq70_underwriter', 'lr21_business_unit', 'name_address', 'paragon_lb97_sbl', 'paragon_lc87_coverage', 'pcommon', 'pcoverage', 'pforms', 'prein_coverage', 'prein_trans', 'ptrans', 'punderlying', 'punit', 'scommon', 'scommon_log', 'tbl_facultative', 'tbl_freedom_ceding_percentages', 'tbl_layered_premium', 'ytd']
+31_class1_tables_list: ['a01_company_setup', 'acommon', 'ccommon', 'company', 'creserve', 'ctd', 'ctransactions', 'freedom_suppress_facultative', 'la02_state', 'lb93_county', 'lc08_const', 'ld14_agt_status', 'ld59_cause_of_loss', 'ld60_loss_types', 'le60_bureau_cov', 'lg37_rating_basis', 'lg78_program_code', 'lq70_underwriter', 'lq70_underwriter', 'lr21_business_unit', 'name_address', 'paragon_lb97_sbl', 'paragon_lc87_coverage', 'pcommon', 'pcoverage', 'pforms', 'prein_coverage', 'prein_trans', 'ptrans', 'punderlying', 'punit', 'scommon', 'scommon_log', 'tbl_facultative', 'tbl_freedom_ceding_percentages', 'tbl_layered_premium', 'ytd']
+#-----------------------------------------------
+test_content_config:
+  connector1: "caps_prod"
+  connector2: "DATA_LAKE_prod"
+  query1: "select * from schema.\"table\""
+  query2: "select * from caps_schema.\"table\""
+  p_key: "ID"
+  use_cache: 'true'
+  transforms:
+    source:
+      SCOMMON:
+        ACK_EMAIL:
+          drop_columns: ''
+#PFORMS	21524339
+#PTRANS	16903901
+#YTD	16887717
+#PCOVERAGE	8417328
+#PUNIT	4597665
+#NAME_ADDRESS	3929691
+#PCOMMON	2334709
+#CTRANSACTIONS	2152348
+#CTD	2140609
+#SCOMMON	1683405
+
+#CMSI	YTD	5997                           --------> class1
+#CMSI	TBL_PPROPERTY_SOV_WORKSHEET	4799
+#PERFSTAT	STATS$SQLTEXT	4126
+#CMSI	PPROPERTY_SOV	4096
+#PERFSTAT	STATS$SQL_SUMMARY	3457
+#CMSI	PCOVERAGE	3248                           --------> class1
+#CMSI	PCOVERAGE_230714	2691
+#CMSI	PTRANS	2628                           --------> class1
+#CMSI	PMVR_DETAIL	2436
+#CMSI	TBL_FFIC_COMML_PREM_DETAIL	2386
+#CMSI	TBL_BASE_LAYER_PREMIUM	2253
+#CMSI	CATMAP_HISTORICAL	2112
+#CMSI	PUNIT	1608                           --------> class1
+#CMSI	PFORMS	1384                           --------> class1 -- PASS
+#CMSI	PUNIT_230714	1351                           --------> class1
+#CMSI	BAK_CATMAP_HISTORICAL	1089
+#CMSI	AOI_HISTORY	1013
+#CMSI	PCOMMON	967                           --------> class1
+#CMSI	NAME_ADDRESS	904                           --------> class1
+#CMSI	CTD	816                           --------> class1
+#CMSI	SCOMMON	800 --------> class1
+#CMSI	SNOTES	744
+#PERFSTAT	STATS$LATCH	742
+#PERFSTAT	STATS$PARAMETER	616
+#CMSI	AUTOPAYMENTS	592
+#PERFSTAT	STATS$SYSSTAT	584
+#CMSI	NAME_XREF	525
+#CMSI	TBL_FFIC_CLAIM_PAYMENT	464
+#CMSI	MV_NAME_ADDRESS	437
+#CMSI	PRECAP_HISTORY	436

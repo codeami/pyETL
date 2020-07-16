@@ -1,0 +1,130 @@
+# -------------Class1 Excluded due to Memory / size constraints -------------
+
+excluded: {
+  gaap: ['grosspremium','grossultimates'],
+  gaapri: ['ripremium'],
+  ibnr: ['grossallocationresult','grossallocation'],
+  vintage: ['claimmovement','claim'],
+  inward: ['claimmovement'],
+  MonthClose: ['RiskSnapshot', 'USMSnapshot', 'ClaimSnapshot'],
+  RIRecoveries: ['RIWholeNetAccountManualAdjustments', 'RIWholeNetAccountRecoveries', 'RIWholeNetAccountRecoveriesDetail', 'RIWholeNetAccountRecoveriesException']
+}
+dont_exist: { engine: ['validationerror'] }
+
+# ------------- Schemas/Tables under Test -------------
+schema_tables_dict: {
+  staticdata: ['elgarclassunderwritingofficemapping', 'lloydsqma104segment', 'lloydsqma106segment', 'lloydstransactiontype', 'nyidgroup', 'placementmethod', 'riskcodelloydsother', 'riskcodelloydsqma104', 'settlementcurrency', 'solvencyiicurrency', 'solvencyiiregion', 'syndicate', 'territorysiimapping', 'trustfund'],
+  vintage: ['RiskDetail', 'Claim', 'ClaimMovement', 'RICollectionBreakdown', 'LossEvent', 'RiskDeduction', 'RICollectionPayment',  'RICollectionHeader', 'RIRiskDetail' ],
+  gaap: ['grosspremiumadjustments', 'grosspremiumload', 'yearofaccountexpirydate'],
+  gaapri: ['riPremiumManualAdjustments', 'riallocationresults', 'ripremiumdetail', 'riultimatedetail', 'riultimatemanualadjustment'],
+  ibnr: ['grossallocationprofile', 'grossmanualadjustments', 'incurredclaimsusm', 'riallocationresult'],
+  outward: ['paidriclaim', 'rireinstatementdetails', 'ririskdetail', 'ririskheader', 'signedripremium'],
+  inward: ['riskdetail', 'signedpremium', 'claim', 'lossevent', 'risksection', 'scmreference'],
+  reference: ['assured', 'broker', 'businessclass', 'class', 'closemonth', 'coverholder', 'currency', 'currencyprofile', 'deductiontype', 'division', 'domicile', 'exchangerate', 'lloydsbusinessclass', 'losseventtype', 'peril', 'reassured', 'reportingclass', 'reservingclassreportingclassmapping', 'riclosemonth', 'rireservingclass', 'rireservingclassactuarialreservingclassmapping', 'riskcode', 'risklloydsriskcode', 'solvencyiiclass', 'territory', 'underwriter', 'underwritingoffice', 'underwritingofficedomicilemapping'],
+  engine: ['audit', 'auditlog', 'buildversion', 'reportengine', 'reportenginereportengineversion', 'reportengineversion', 'reportparametersstaging', 'returnreport', 'sqlparameters', 'versioncontrol']
+}
+#---------------Test Details --------------------------------
+test_content_config:
+  connector1: "DATA_LAKE_prod"
+  connector2: "Snowflake_prod"
+  query1: "select * from lighthouse_schema.\"table\""
+  query2: "select * from lighthouse_schema.\"table\""
+  p_key: "ID"
+  use_cache: 'True'
+  transforms:
+    source:
+      RIULTIMATEMANUALADJUSTMENT:
+        COMMENTS:
+          drop_columns: ''
+      CLAIM:
+        SCMPCSCODE:
+          transform: 'strip'
+      RISKDETAIL:
+        POLICYCURRENCY:
+          transform: 'strip'
+      SIGNEDRIPREMIUM:
+        QUALIFYINGCATEGORY:
+          transform: 'strip'
+        DTICODE:
+          transform: 'strip'
+        LPSOMESSAGEREFERENCE:
+          transform: 'strip'
+      PAIDRICLAIM:
+        DTICODE:
+          transform: 'strip'
+        LPSOMESSAGEREFERENCE:
+          transform: 'strip'
+      SIGNEDPREMIUM:
+        DTICODE:
+          transform: 'strip'
+        LPSOMESSAGEREFERENCE:
+          transform: 'strip'
+      YEAROFACCOUNTEXPIRYDATE:
+        YEARTOEXPIRE:
+          cast: 'to_datetime'
+      SCMREFERENCE:
+        BPR_CREF:
+          transform: 'strip'
+        OCR_CREF:
+          transform: 'strip'
+    target:
+      RISKDETAIL:
+        POLICYCURRENCY:
+          transform: 'strip'
+      YEAROFACCOUNTEXPIRYDATE:
+        YEARTOEXPIRE:
+          cast: 'to_datetime'
+      SCMREFERENCE:
+        BPR_CREF:
+          transform: 'strip'
+        OCR_CREF:
+          transform: 'strip'
+
+
+
+# Details of large class1 tables   --Size in MB
+#RIAllocation	GAAPRI	314751.73
+#RIPremium	GAAPRI	37946.06
+#RIAllocationLoad	GAAPRI	8270.79
+#RIAllocationInwardsPremium	GAAPRI	4666.44     --->
+
+#RiskSnapshot	MonthClose	31247.37
+#USMSnapshot	MonthClose	29176.34
+#ClaimSnapshot	MonthClose	7028.55
+
+#GrossPremiumResult	GAAP	21011.10
+#GrossPremium	GAAP	20364.58
+#GrossUltimates	GAAP	15808.80
+
+#USMNarrative	Inward	6519.87
+#GrossAllocation	IBNR	13179.16
+#GrossAllocationResult	IBNR	4060.91  --->
+
+#RiskDetail	Vintage	1909.09 -----> time taken to extract query: -- (1426039, 128)
+
+
+#excluded2: {
+#  gaap: [],
+#  gaapri: [],
+#  ibnr: [],
+#  vintage: [],
+#  inward: [],
+#  MonthClose: ['RiskSnapshot', 'USMSnapshot', 'ClaimSnapshot'],
+#  RIRecoveries: ['RIWholeNetAccountManualAdjustments', 'RIWholeNetAccountRecoveries', 'RIWholeNetAccountRecoveriesDetail', 'RIWholeNetAccountRecoveriesException']
+#}
+dont_exist2: { engine: ['validationerror'] }
+
+# ------------- Schemas/Tables under Test -------------
+class1_schema_tables_dict: {
+  staticdata: ['elgarclassunderwritingofficemapping', 'lloydsqma104segment', 'lloydsqma106segment', 'lloydstransactiontype', 'nyidgroup', 'placementmethod', 'riskcodelloydsother', 'riskcodelloydsqma104', 'settlementcurrency', 'solvencyiicurrency', 'solvencyiiregion', 'syndicate', 'territorysiimapping', 'trustfund'],
+  vintage: ['RiskDetail', 'Claim', 'ClaimMovement', 'RICollectionBreakdown', 'LossEvent', 'RiskDeduction', 'RICollectionPayment',  'RICollectionHeader', 'RIRiskDetail', 'claimmovement','claim'],
+  gaap: ['grosspremiumadjustments', 'grosspremiumload', 'yearofaccountexpirydate','grosspremium','grossultimates'],
+  gaapri: ['riPremiumManualAdjustments', 'riallocationresults', 'ripremiumdetail', 'riultimatedetail', 'riultimatemanualadjustment', 'ripremium'],
+  ibnr: ['grossallocationprofile', 'grossmanualadjustments', 'incurredclaimsusm', 'riallocationresult','grossallocationresult','grossallocation'],
+  outward: ['paidriclaim', 'rireinstatementdetails', 'ririskdetail', 'ririskheader', 'signedripremium'],
+  inward: ['riskdetail','signedpremium', 'claim', 'lossevent', 'risksection', 'scmreference', 'claimmovement'],
+  reference: ['assured', 'broker', 'businessclass', 'class', 'closemonth', 'coverholder', 'currency', 'currencyprofile', 'deductiontype', 'division', 'domicile', 'exchangerate', 'lloydsbusinessclass', 'losseventtype', 'peril', 'reassured', 'reportingclass', 'reservingclassreportingclassmapping', 'riclosemonth', 'rireservingclass', 'rireservingclassactuarialreservingclassmapping', 'riskcode', 'risklloydsriskcode', 'solvencyiiclass', 'territory', 'underwriter', 'underwritingoffice', 'underwritingofficedomicilemapping'],
+  MonthClose: ['RiskSnapshot', 'USMSnapshot', 'ClaimSnapshot'],
+  RIRecoveries: ['RIWholeNetAccountManualAdjustments', 'RIWholeNetAccountRecoveries', 'RIWholeNetAccountRecoveriesDetail', 'RIWholeNetAccountRecoveriesException'],
+  engine: ['audit', 'auditlog', 'buildversion', 'reportengine', 'reportenginereportengineversion', 'reportengineversion', 'reportparametersstaging', 'returnreport', 'sqlparameters', 'versioncontrol']
+}

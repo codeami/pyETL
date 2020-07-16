@@ -1,0 +1,15 @@
+query_pair1:
+  query1: "select distinct\n          pu.b29_addr,\n          pu.b92_city,\n     \
+    \     concat(pu.b94_location,'-',pu.c86_unitdesc) as location_name,\n        \
+    \  pu.b32_zip,\n          pu.conf_risk_state_abbreviation,\n          concat(pc.a00_pnum,'|',pc.a06_edition,'|',pc.e01_transnum,'|',pc.t91_pcov_key,'|',pu.t91_punit_key)\
+    \ as source_system_key\n          from\n          caps_cmsi.pcoverage pc\n   \
+    \       join caps_cmsi.punit pu on\n          pc.a00_pnum = pu.a00_pnum\n    \
+    \      and pc.a06_edition = pu.a06_edition\n          and pc.e01_transnum = pu.e01_transnum\n\
+    \          and  pc.b79_unit = pu.b79_unit\n          join caps_cmsi.ptrans pt\
+    \ on\n          pt.a00_pnum = pc.a00_pnum\n          and pt.a06_edition = pc.a06_edition\n\
+    \          and pt.e01_transnum = pc.e01_transnum\n          and pt.t91_pcov_key\
+    \ = pc.t91_pcov_key\n          and pt.b79_unit = pc.b79_unit\n          and pt.t91_punit_key\
+    \ = pu.t91_punit_key"
+  query2: "SELECT distinct\n  LOCATION_ADDRESS_LINE_1,\n  LOCATION_CITY,\n  LOCATION_NAME,\n\
+    \  LOCATION_POSTAL_CODE,\n  LOCATION_STATE,\n  SOURCE_SYSTEM_KEY\n  FROM EDW_DEV.STAGING.COVERABLE_LOCATION\
+    \ WHERE SOURCE_SYSTEM in ('CAPS')"

@@ -1,0 +1,196 @@
+test_content_config:
+  connector1: data_lake_prod
+  connector2: EDW_DEV
+  p_key: ID
+  use_cache: ''
+query_pair1:
+  query1: TEST_LIGHTHOUSE-select distinct pu.b29_addr as LOCATION_ADDRESS_LINE_1
+  query2: select distinct pu.b29_addr as LOCATION_ADDRESS_LINE_1
+query_pair2:
+  query1: Test LIGHTHOUSE- select distinct pu.b29_addr as LOCATION_ADDRESS_LINE_1,
+    pu.b92_city as LOCATION_CITY, concat(pu.b94_location,'-',pu.c86_unitdesc) as location_name,
+    pu.b32_zip as LOCATION_POSTAL_CODE, pu.conf_risk_state_abbreviation as LOCATION_STATE,
+    concat(pc.a00_pnum,'|',pc.a06_edition,'|',pc.e01_transnum,'|',pc.t91_pcov_key,'|',pu.t91_punit_key)
+    as source_system_key from caps_cmsi.pcoverage pc join caps_cmsi.punit pu on pc.a00_pnum
+    = pu.a00_pnum and pc.a06_edition = pu.a06_edition and pc.e01_transnum = pu.e01_transnum
+    and  pc.b79_unit = pu.b79_unit join caps_cmsi.ptrans pt on pt.a00_pnum = pc.a00_pnum
+    and pt.a06_edition = pc.a06_edition and pt.e01_transnum = pc.e01_transnum and
+    pt.t91_pcov_key = pc.t91_pcov_key and pt.b79_unit = pc.b79_unit and pt.t91_punit_key
+    = pu.t91_punit_key
+  query2: SELECT LOCATION_ADDRESS_LINE_1, LOCATION_CITY, LOCATION_NAME, LOCATION_POSTAL_CODE,
+    LOCATION_STATE, SOURCE_SYSTEM_KEY FROM EDW_DEV.STAGING.COVERABLE_LOCATION
+
+query_pair3:
+  query1: select distinct CONCAT(TRIM(a00_pnum), '|', a06_edition, '|', e01_transnum,
+    '|', t91_pcov_key) as POLICY_COVERAGE from caps_cmsi.pcoverage
+  query2: select * from EDW_DEV.STAGING.POLICY_COVERAGE as POLICY_COVERAGE WHERE SOURCE_SYSTEM
+    in ('CAPS')
+query_pair4:
+  query1: select distinct CONCAT(TRIM(a00_pnum), '|', a06_edition, '|', e01_transnum,
+    '|', t91_pcov_key) as POLICY_COVERAGE from caps_cmsi.pcoverage
+  query2: select * from EDW_DEV.STAGING.POLICY_COVERAGE as POLICY_COVERAGE WHERE SOURCE_SYSTEM
+    in ('CAPS')
+
+query_pair5:
+  query1: TEst
+  query2: select * from EDW_DEV.STAGING.POLICY_COVERAGE as POLICY_COVERAGE WHERE SOURCE_SYSTEM
+    in ('CAPS')
+query_pair6:
+  query1: teset
+  query2: select * from EDW_DEV.STAGING.POLICY_COVERAGE as POLICY_COVERAGE WHERE SOURCE_SYSTEM
+    in ('CAPS')
+query_pair7:
+  query1: "select distinct\n          pu.b29_addr,\n          pu.b92_city,\n     \
+    \     concat(pu.b94_location,'-',pu.c86_unitdesc) as location_name,\n        \
+    \  pu.b32_zip,\n          pu.conf_risk_state_abbreviation,\n          concat(pc.a00_pnum,'|',pc.a06_edition,'|',pc.e01_transnum,'|',pc.t91_pcov_key,'|',pu.t91_punit_key)\
+    \ as source_system_key\n          from\n          caps_cmsi.pcoverage pc\n   \
+    \       join caps_cmsi.punit pu on\n          pc.a00_pnum = pu.a00_pnum\n    \
+    \      and pc.a06_edition = pu.a06_edition\n          and pc.e01_transnum = pu.e01_transnum\n\
+    \          and  pc.b79_unit = pu.b79_unit\n          join caps_cmsi.ptrans pt\
+    \ on\n          pt.a00_pnum = pc.a00_pnum\n          and pt.a06_edition = pc.a06_edition\n\
+    \          and pt.e01_transnum = pc.e01_transnum\n          and pt.t91_pcov_key\
+    \ = pc.t91_pcov_key\n          and pt.b79_unit = pc.b79_unit\n          and pt.t91_punit_key\
+    \ = pu.t91_punit_key"
+  query2: "SELECT\n  LOCATION_ADDRESS_LINE_1,\n  LOCATION_CITY,\n  LOCATION_NAME,\n\
+    \  LOCATION_POSTAL_CODE,\n  LOCATION_STATE,\n  SOURCE_SYSTEM_KEY\n  FROM EDW_DEV.STAGING.COVERABLE_LOCATION"
+query_pair8:
+  query1: ashish
+  query2: test
+query_pair9:
+  query1: asdasd
+  query2: ashash
+query_pair10:
+  query1: "10101010\t10101"
+  query2: '1010213213131'
+query_pair11:
+  query1: "11111111\televen test eleven"
+  query2: eleven test eleven 111111111
+query_pair12:
+  query1: "select AccidentYear, AccountingPeriod, AdjustmentDescription, ClaimReservingGroupID,\
+    \ Class_ID, Division_ID, DomicileID, EffectiveEndDate, EffectiveStartDate, FILCode,\
+    \ GAAPResultVersionID, GAAPUltimateVersionID, GrossActuarialUltimateID, GrossActuarialUltimateVersionID,\
+    \ GrossAllocationResultID, GrossAllocationVersionID, GrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ GrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, GrossEarnedMarginSettlement,\
+    \ GrossEarnedReservesIncLossFundsExcMarginSettlement, GrossEarnedUltimateClaimsExcMarginSettlement,\
+    \ GrossEarnedUltimateClaimsIncMarginSettlement, GrossIncurredClaimsExcLossFundsSettlement,\
+    \ GrossNetEarnedPremiumSettlement, GrossNetUltimatePremiumSettlement, GrossOutstandingClaimsSettlement,\
+    \ GrossUltimateClaimsExcMarginSettlement, GrossUltimateClaimsIncMarginSettlement,\
+    \ GrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, GrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ GrossUltimateMarginSettlement, GrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ IBNRSource, LloydsBusinessClass_ID, LossEventType, LossEventType_ID, ManualAdjustmentType,\
+    \ MarginVersionID, OriginalCurrency, ProcessPeriod, ReportingClass_ID, ReservingClassReportingClassMappingID,\
+    \ ReservingPeriod, RunDate, SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID,\
+    \ SecondaryNYIDCode, SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator,\
+    \ SecondarySolvencyIITransactionType, SettlementCurrency, SolvencyIIRegionID,\
+    \ SubReportingClassID, Syndicate, TerritoryID, TrustFundID, UnderwritingOfficeID,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement, UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ UnRoundedGrossEarnedMarginSettlement, UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossIncurredClaimsExcLossFundsSettlement, UnRoundedGrossNetEarnedPremiumSettlement,\
+    \ UnRoundedGrossNetUltimatePremiumSettlement, UnRoundedGrossOutstandingClaimsSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ UnRoundedGrossUltimateMarginSettlement, UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ UserName, YearOfAccount\nfrom lighthouse_ibnr.GrossAllocationResult"
+  query2: "select AccidentYear, AccountingPeriod, AdjustmentDescription, ClaimReservingGroupID,\
+    \ Class_ID, Division_ID, DomicileID, EffectiveEndDate, EffectiveStartDate, FILCode,\
+    \ GAAPResultVersionID, GAAPUltimateVersionID, GrossActuarialUltimateID, GrossActuarialUltimateVersionID,\
+    \ GrossAllocationResultID, GrossAllocationVersionID, GrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ GrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, GrossEarnedMarginSettlement,\
+    \ GrossEarnedReservesIncLossFundsExcMarginSettlement, GrossEarnedUltimateClaimsExcMarginSettlement,\
+    \ GrossEarnedUltimateClaimsIncMarginSettlement, GrossIncurredClaimsExcLossFundsSettlement,\
+    \ GrossNetEarnedPremiumSettlement, GrossNetUltimatePremiumSettlement, GrossOutstandingClaimsSettlement,\
+    \ GrossUltimateClaimsExcMarginSettlement, GrossUltimateClaimsIncMarginSettlement,\
+    \ GrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, GrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ GrossUltimateMarginSettlement, GrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ IBNRSource, LloydsBusinessClass_ID, LossEventType, LossEventType_ID, ManualAdjustmentType,\
+    \ MarginVersionID, OriginalCurrency, ProcessPeriod, ReportingClass_ID, ReservingClassReportingClassMappingID,\
+    \ ReservingPeriod, RunDate, SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID,\
+    \ SecondaryNYIDCode, SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator,\
+    \ SecondarySolvencyIITransactionType, SettlementCurrency, SolvencyIIRegionID,\
+    \ SubReportingClassID, Syndicate, TerritoryID, TrustFundID, UnderwritingOfficeID,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement, UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ UnRoundedGrossEarnedMarginSettlement, UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossIncurredClaimsExcLossFundsSettlement, UnRoundedGrossNetEarnedPremiumSettlement,\
+    \ UnRoundedGrossNetUltimatePremiumSettlement, UnRoundedGrossOutstandingClaimsSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ UnRoundedGrossUltimateMarginSettlement, UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ UserName, YearOfAccount\nfrom data_lake.lighthouse_ibnr.GrossAllocationResult"
+query_pair13:
+  query1: "select ReservingClassReportingClassMappingID, ReservingPeriod, RunDate,\
+    \ SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID, SecondaryNYIDCode,\
+    \ SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator, SecondarySolvencyIITransactionType,\
+    \ SettlementCurrency, SolvencyIIRegionID, SubReportingClassID, Syndicate, TerritoryID,\
+    \ TrustFundID, UnderwritingOfficeID, UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossEarnedMarginSettlement,\
+    \ UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement, UnRoundedGrossIncurredClaimsExcLossFundsSettlement,\
+    \ UnRoundedGrossNetEarnedPremiumSettlement, UnRoundedGrossNetUltimatePremiumSettlement,\
+    \ UnRoundedGrossOutstandingClaimsSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossUltimateMarginSettlement,\
+    \ UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement, UserName, YearOfAccount\n\
+    from lighthouse_ibnr.GrossAllocationResult"
+  query2: "select ReservingClassReportingClassMappingID, ReservingPeriod, RunDate,\
+    \ SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID, SecondaryNYIDCode,\
+    \ SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator, SecondarySolvencyIITransactionType,\
+    \ SettlementCurrency, SolvencyIIRegionID, SubReportingClassID, Syndicate, TerritoryID,\
+    \ TrustFundID, UnderwritingOfficeID, UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossEarnedMarginSettlement,\
+    \ UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement, UnRoundedGrossIncurredClaimsExcLossFundsSettlement,\
+    \ UnRoundedGrossNetEarnedPremiumSettlement, UnRoundedGrossNetUltimatePremiumSettlement,\
+    \ UnRoundedGrossOutstandingClaimsSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossUltimateMarginSettlement,\
+    \ UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement, UserName, YearOfAccount\n\
+    from data_lake.lighthouse_ibnr.GrossAllocationResult"
+query_pair14:
+  query1: "select ReservingClassReportingClassMappingID, ReservingPeriod, RunDate,\
+    \ SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID, SecondaryNYIDCode,\
+    \ SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator, SecondarySolvencyIITransactionType,\
+    \ SettlementCurrency, SolvencyIIRegionID, SubReportingClassID, Syndicate, TerritoryID,\
+    \ TrustFundID, UnderwritingOfficeID, UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossEarnedMarginSettlement,\
+    \ UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement, UnRoundedGrossIncurredClaimsExcLossFundsSettlement,\
+    \ UnRoundedGrossNetEarnedPremiumSettlement, UnRoundedGrossNetUltimatePremiumSettlement,\
+    \ UnRoundedGrossOutstandingClaimsSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossUltimateMarginSettlement,\
+    \ UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement, UserName, YearOfAccount\
+    \  \n  from lighthouse_ibnr.GrossAllocationResult"
+  query2: "select ReservingClassReportingClassMappingID, ReservingPeriod, RunDate,\
+    \ SecondaryLloyds104SegmentID, SecondaryLloyds106SegmentID, SecondaryNYIDCode,\
+    \ SecondaryRiskCode, SecondarySolvencyIIID, SecondarySolvencyIIndicator, SecondarySolvencyIITransactionType,\
+    \ SettlementCurrency, SolvencyIIRegionID, SubReportingClassID, Syndicate, TerritoryID,\
+    \ TrustFundID, UnderwritingOfficeID, UnRoundedGrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossEarnedMarginSettlement,\
+    \ UnRoundedGrossEarnedReservesIncLossFundsExcMarginSettlement, UnRoundedGrossIncurredClaimsExcLossFundsSettlement,\
+    \ UnRoundedGrossNetEarnedPremiumSettlement, UnRoundedGrossNetUltimatePremiumSettlement,\
+    \ UnRoundedGrossOutstandingClaimsSettlement, UnRoundedGrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ UnRoundedGrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement, UnRoundedGrossUltimateMarginSettlement,\
+    \ UnRoundedGrossUltimateReservesIncLossFundsExcMarginSettlement, UserName, YearOfAccount\
+    \  \n from data_lake.lighthouse_ibnr.GrossAllocationResult"
+query_pair15:
+  query1: "select AccidentYear, AccountingPeriod, AdjustmentDescription, ClaimReservingGroupID,\
+    \ Class_ID, Division_ID, DomicileID, EffectiveEndDate, EffectiveStartDate, FILCode,\
+    \ GAAPResultVersionID, GAAPUltimateVersionID, GrossActuarialUltimateID, GrossActuarialUltimateVersionID,\
+    \ GrossAllocationResultID, GrossAllocationVersionID, GrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ GrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, GrossEarnedMarginSettlement,\
+    \ GrossEarnedReservesIncLossFundsExcMarginSettlement, GrossEarnedUltimateClaimsExcMarginSettlement,\
+    \ GrossEarnedUltimateClaimsIncMarginSettlement, GrossIncurredClaimsExcLossFundsSettlement,\
+    \ GrossNetEarnedPremiumSettlement, GrossNetUltimatePremiumSettlement, GrossOutstandingClaimsSettlement,\
+    \ GrossUltimateClaimsExcMarginSettlement, GrossUltimateClaimsIncMarginSettlement,\
+    \ GrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, GrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ GrossUltimateMarginSettlement, GrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ IBNRSource, LloydsBusinessClass_ID, LossEventType, LossEventType_ID, ManualAdjustmentType,\
+    \ MarginVersionID, OriginalCurrency, ProcessPeriod, ReportingClass_ID\n from lighthouse_ibnr.GrossAllocationResult"
+  query2: "select AccidentYear, AccountingPeriod, AdjustmentDescription, ClaimReservingGroupID,\
+    \ Class_ID, Division_ID, DomicileID, EffectiveEndDate, EffectiveStartDate, FILCode,\
+    \ GAAPResultVersionID, GAAPUltimateVersionID, GrossActuarialUltimateID, GrossActuarialUltimateVersionID,\
+    \ GrossAllocationResultID, GrossAllocationVersionID, GrossEarnedIBNRClaimsIncLossFundsExcMarginSettlement,\
+    \ GrossEarnedIBNRClaimsIncLossFundsIncMarginSettlement, GrossEarnedMarginSettlement,\
+    \ GrossEarnedReservesIncLossFundsExcMarginSettlement, GrossEarnedUltimateClaimsExcMarginSettlement,\
+    \ GrossEarnedUltimateClaimsIncMarginSettlement, GrossIncurredClaimsExcLossFundsSettlement,\
+    \ GrossNetEarnedPremiumSettlement, GrossNetUltimatePremiumSettlement, GrossOutstandingClaimsSettlement,\
+    \ GrossUltimateClaimsExcMarginSettlement, GrossUltimateClaimsIncMarginSettlement,\
+    \ GrossUltimateIBNRClaimsIncLossFundsExcMarginSettlement, GrossUltimateIBNRClaimsIncLossFundsIncMarginSettlement,\
+    \ GrossUltimateMarginSettlement, GrossUltimateReservesIncLossFundsExcMarginSettlement,\
+    \ IBNRSource, LloydsBusinessClass_ID, LossEventType, LossEventType_ID, ManualAdjustmentType,\
+    \ MarginVersionID, OriginalCurrency, ProcessPeriod, ReportingClass_ID\n from data_lake.lighthouse_ibnr.GrossAllocationResult"
+query_pair16:
+  query1: Kalicharan
+  query2: Rahul

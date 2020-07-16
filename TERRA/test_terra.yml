@@ -1,0 +1,36 @@
+# -------------Class1 Excluded due to Memory / size constraints -------------
+
+excluded: {}
+dont_exist: { }
+class1_schema_tables_dict: {}
+# ------------- Schemas/Tables under Test -------------
+schema_tables_dict: {
+#  Ariel_Arps.dbo: ['tbl_JobDetailLog', 'tbl_FireData', 'tbl_ModelGULoss', 'tbl_PortfolioImpactRP', 'tbl_FxRate', 'tbl_SMF', 'tbl_ModelWeight', 'tbl_Job', 'tbl_ModelLoss', 'tbl_RMSImportAnalysis', 'tbl_PortfolioImpactLloydsRP', 'tbl_ArchiveData', 'tbl_ModelExposure', 'tbl_FinalTermsSnapshotPerils', 'tbl_PortfolioImpact', 'tbl_ArchiveLayer', 'tbl_SubLimit', 'tbl_Layer', 'tbl_SIC', 'tbl_Submission', 'tbl_SubmissionPolicyChecklist', 'tbl_RMSImport', 'tbl_Program', 'tbl_Cedant'],
+#  Ariel_Air.dbo: ['tbl_AIR_Historical', 'tbl_AIR_ILW_RDS', 'tbl_AIR_RDS', 'tbl_Analysis', 'tbl_AnalysisAccumPeril', 'tbl_AnalysisContract', 'tbl_AnalysisEventShort', 'tbl_AnalysisExposure', 'tbl_AnalysisHistorical', 'tbl_AnalysisType', 'tbl_AnalysisWarning', 'tbl_AnalysisWarningException', 'tbl_AreaDetail', 'tbl_ContractType', 'tbl_CovResolution', 'tbl_DBDowngradeScript', 'tbl_DBUpgradeScript', 'tbl_EventSet', 'tbl_EventSetMap', 'tbl_EventSetMapdata', 'tbl_EventSetMapdataUpgrade', 'tbl_EventShortWarning', 'tbl_GeoResolution', 'tbl_MarketShare', 'tbl_ModelServerVersion', 'tbl_NetLossPerspType', 'tbl_ObjectType', 'tbl_Peril', 'tbl_RDSEvent', 'tbl_RDSEventLimit', 'tbl_RDSSubEvent', 'tbl_Warning', 'tbl_WarningCategory'],
+#  Ariel_Accum.dbo: ['tbl_Accum', 'tbl_accum_old', 'tbl_accum_stage', 'tbl_accumarchive', 'tbl_accumhistoryrds', 'tbl_accumhistoryrp', 'tbl_accumhistoryscr', 'tbl_accumlayer', 'tbl_accumpmd', 'tbl_accumpmddata', 'tbl_accumpmddata_stage', 'tbl_accumpmdexceptions', 'tbl_accumpmdform163', 'tbl_accumpmdform186', 'tbl_accumpmdform187', 'tbl_accumpmdform188', 'tbl_accumpmdmissing', 'tbl_accumpmdratefactor', 'tbl_accumportfolio', 'tbl_accumportfolio_old', 'tbl_accumportfoliords', 'tbl_accumportfoliords_old', 'tbl_accumrds', 'tbl_accumrds_old', 'tbl_accumrds_stage', 'tbl_cededrecoverydetail', 'tbl_cededrecoverydetail_stage']
+  Ariel_FxRate.dbo: ['tbl_Currency', 'tbl_CurrencyRate', 'tbl_CurrencyVersion', 'tbl_DownloadLog'],
+  Ariel_RMS.dbo: ['tbl_Analysis', 'tbl_AnalysisAccumPeril', 'tbl_AnalysisEventShort', 'tbl_AnalysisExposure', 'tbl_AnalysisRDAdj', 'tbl_AnalysisType', 'tbl_AnalysisWarning', 'tbl_AnalysisWarningException', 'tbl_DBUpgradeScript', 'tbl_DLMProfile', 'tbl_EventShortWarning', 'tbl_ExposureType', 'tbl_LossAmplification', 'tbl_Peril', 'tbl_PerspCode', 'tbl_RDSEvent', 'tbl_RDSEventLimit', 'tbl_RDSSubEvent', 'tbl_RMS_Historical', 'tbl_RMS_ILW_RDS', 'tbl_RMS_LatLon', 'tbl_Region', 'tbl_SubPeril', 'tbl_Warning', 'tbl_WarningCategory'],
+  Ariel_Reports.dbo: ['tbl_AIRUpgrade', 'tbl_AccumArchive_Old', 'tbl_AccumLayerLoss', 'tbl_AccumLayerPeril', 'tbl_AccumShare', 'tbl_AccumShareType', 'tbl_ClientMeetingNotes', 'tbl_DateCriteria', 'tbl_ExposureBase', 'tbl_ExposureDetails', 'tbl_FxRate', 'tbl_LayerFlag', 'tbl_MultiYear', 'tbl_PeerReview', 'tbl_Policy', 'tbl_Policy_Old', 'tbl_PremByState', 'tbl_ProgramStats', 'tbl_ReplLog', 'tbl_ReportCategory', 'tbl_ReportFilter', 'tbl_ReportOn', 'tbl_Reports', 'tbl_SanctionsExposure', 'tbl_Submission', 'tbl_Tables', 'tbl_XuberClaims', 'tbl_XuberPremiums']
+
+
+}
+#---------------Test Details --------------------------------
+test_content_config:
+  connector1: "Terra_prod"
+  connector2: "data_lake_dev"
+  query1: ""
+  query2: ""
+  p_key: "ID"
+  use_cache: ''
+  size_check: ''
+  transforms:
+    source:
+      TBL_PROGRAM:
+        UWNOTES:
+          truncate: 2048
+      TBL_LAYER:
+        RATECHANGEFLAG:
+          transform: 'strip'
+      TBL_XUBERPREMIUMS:
+        XUBERWRITTEN:
+          truncate: 16
