@@ -377,7 +377,7 @@ def columns_content_diff(query1, query2, conn1, conn2, p_key='', transforms=''):
 
     if 'edw' in conn2.lower():
         df1, df2 = concat_column_names(df1, df2)
-
+    df1, df2 = cast_column_data_types(df1, df2)
     # df1, df2 = cast_date_columns_to_timestamp(df1, df2)
 
     if type(transforms) == dict:
@@ -407,8 +407,8 @@ def dataframe_difference(df1, df2, p_key='', testname='', result=[]):
     """Find rows which are different between two DataFrames."""
     start = time.time()
     comparison_df = df2.merge(df1, sort=p_key, indicator=True, how='outer')
+
     # todo catch exception raise ValueError(msg)
-    # ValueError: You are trying to merge on datetime64[ns] and object columns. If you wish to proceed you should use pd.concat
     diff_df = comparison_df[comparison_df['_merge'] != 'both']
     log('RESULT time taken to Compare via Outer Join: ' +
         str(timedelta(seconds=int(time.time() - start))) + ' H:MM:SS')
@@ -440,7 +440,6 @@ def dataframe_difference(df1, df2, p_key='', testname='', result=[]):
             log('CALCULATED primary key based on column with most unique values:  ' + str(p_key))
 
         primary_keys_intersection = list(set(d1[p_key]) & set(d2[p_key]))
-
         log('RESULT Diff-Merge Left VS Right PRIMARY KEY intersection length: ' + str(len(primary_keys_intersection)))
 
         # Drop _merge_result column
@@ -469,6 +468,8 @@ def dataframe_difference(df1, df2, p_key='', testname='', result=[]):
             cols = list(diff_df.columns)
             cols.insert(0, cols.pop(cols.index('_merge')))
             diff_df = diff_df.loc[:, cols]  # use ix to reorder
+
+            diff_df = diff_df.sort_values(by=[p_key]).reset_index(drop=True)
             # todo decide on logic of what diff too big to save
             if 100000 < diff_df.shape[0]:
                 # if diff_df.shape[0] > d1.shape[0] * 1.5:
