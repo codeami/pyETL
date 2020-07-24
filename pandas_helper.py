@@ -473,10 +473,11 @@ def dataframe_difference(df1, df2, p_key='', testname='', result=[]):
             if 100000 < diff_df.shape[0]:
                 # if diff_df.shape[0] > d1.shape[0] * 1.5:
                 log('SAVING RESULT Diff-Merge has more than 100K rows.' +
-                    'LIMIT diff csv creation to 1000 rows.')
+                    'LIMIT diff csv creation to 100K rows.')
                 # else:
-                diff_df.head(1000).to_csv(diff_f)
-                diff_df.head(1000).to_csv(diff2_f)
+                diff_df.head(100000).to_csv(diff_f)
+                # replace with fs.copy
+                diff_df.head(100000).to_csv(diff2_f)
                 log('SAVING RESULT Diff-Merge     . CSV filename: ' + diff_f)
                 log('SAVING RESULT Diff-Merge     . CSV filename: ' + diff2_f)
             else:
@@ -592,7 +593,7 @@ def trim_diff(d1, d2, diff_subset, p_key, file_name_suffix, testname):
         log('RESULT Trim Merge shape after drop na: ' + str(diff_trimmed_data.shape))
         # Move Compare-Result column to the front
         cols = list(diff_trimmed_data.columns)
-        # cols.insert(0, cols.pop(cols.index('_merge')))
+        cols.insert(0, cols.pop(cols.index('_merge')))
         cols.insert(1, cols.pop(cols.index(p_key)))
         diff_trimmed_data = diff_trimmed_data.loc[:, cols]  # use ix to reorder
 
@@ -610,10 +611,13 @@ def trim_diff(d1, d2, diff_subset, p_key, file_name_suffix, testname):
     if 100000 < diff_trimmed_data.shape[0]:
         # Max sheet size is: 1048576, 16384
         log('SAVING RESULT Diff-Merge has more than 100K rows.' +
-            ' LIMIT diff csv creation to 1000 rows.')
-        save_diff_to_xlsx_with_formatting(diff_trimmed_data.head(1000), trim_f2)
+            ' LIMIT diff csv creation to 100K rows.')
+        save_diff_to_xlsx_with_formatting(diff_trimmed_data.head(100000), trim_f)
+        # replace with fs.copy
+        save_diff_to_xlsx_with_formatting(diff_trimmed_data.head(100000), trim_f2)
     else:
         save_diff_to_xlsx_with_formatting(diff_trimmed_data, trim_f)
+        # replace with fs.copy
         save_diff_to_xlsx_with_formatting(diff_trimmed_data, trim_f2)
     # # Calculate each value is diff or not (boolean array)
     # diff_bool_trim = d1_trim.where(d1_trim.values == d2_trim.values).notna()
@@ -927,7 +931,8 @@ def get_connection(x):
 def postgres_connection(conn_str):
     return psycopg2.connect(
         host=conn_str['host'],
-        port=conn_str['port'], database=conn_str['database'], user=conn_str['username'], password=conn_str['password'])
+        port=conn_str['port'], database=conn_str['database'], user=conn_str['username'], password=conn_str['password'],
+        options='-c extra_float_digits=3')
 
 
 def oracle_connection(conn_str):
