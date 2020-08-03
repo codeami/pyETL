@@ -53,15 +53,14 @@ Main script- pandas_helper.py
 
 ## Custom Transform Features
 * Columns check after dropping ETL/DG columns
-  -Fail test on columns mismatch - highlighting missing columns 
-  -1:1 column name mapping validated in select * query
-  -Column names from Source and Target concatenated in select col1,.. query
-    -Concatenated in order  - so columns in query must be ordered correctly
-      -See query in GUI interface
-    -‘|’ pipe separated column names
+  - Fail test on columns mismatch - highlighting missing columns 
+  - 1:1 column name mapping validated in select * query
+  - Column names from Source and Target concatenated in select col1,.. query
+    - Concatenated in order  - so columns in query must be ordered correctly
+    - ‘|’ pipe separated column names
 * Automated casting (type conversion)
-  -Logic is coded to smartly cast Data types
-  -Ex: Columns names with date/time in them are cast to DateTime type
+  - Logic is coded to smartly cast Data types
+  - Ex: Columns names with date/time in them are cast to DateTime type
   
  ## Test Details in a YAML (dictionary format):-
 * Connector1 = Source connector
