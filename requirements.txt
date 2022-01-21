@@ -1,5 +1,5 @@
 cx-Oracle==7.3.0
-ipython==7.13.0
+ipython==7.16.3
 numpy==1.18.3
 pandas~=1.0.4
 psycopg2==2.7.7
